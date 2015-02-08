@@ -15,9 +15,37 @@
 </head>
 <body>
     
+    <!-- Sounds list -->
+    
+    <div class="properties">
+        
+        <h2 class="g_secondTitle">Sélectionner les sons à jouer</h2>
+        
+        <ul class="properties_library"></ul>
+        <ul class="properties_selectedSounds"></ul>
+        
+        <h2 class="g_secondTitle">Sélectionner l'ordre de lecture</h2>
+        
+        <input type="radio" name="order" value="normal" class="properties_order" id="properties_orderNormal" checked> <label for="properties_orderNormal">Normal</label>
+        <input type="radio" name="order" value="random" class="properties_order" id="properties_orderRand"> <label for="properties_orderRand">Aléatoire</label>
+        
+        <h2 class="g_secondTitle">Choisir l'intervalle de temps entre chaque son</h2>
+        
+        <input type="text" id="properties_delay" class="properties_delay" value="0"><label for="properties_delay">sec</label>
+        
+    </div>
+    
     <!-- Player -->
     
     <div class="player_wrapper">
+       
+        <h2 class="g_secondTitle">Lancer la lecture</h2>
+        
+        <div class="player_countDown">
+            Lecture du prochain son dans
+            <span>0</span>
+            seconde(s)
+        </div>
         
         <button id="player_prev">&lt;</button>
         <audio controls id="player">
