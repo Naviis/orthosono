@@ -34,15 +34,13 @@
    <!-- Saves -->
    
    <div class="saves">
-       
-       <ul class="saves_list">
-           <li data-id="-1">Nouvelle configuration</li>
-       </ul>
+       <button class="presets_new">Nouveau réglage</button>
+       <ul class="presets_list"></ul>
        
    </div>
    
    <div class="saves_prompt">
-       <input type="text" class="saves_name" placeholder="Nom de votre configuration">
+       <input type="text" class="preset_name" placeholder="Nom de votre configuration">
    </div>
     
     <!-- Sounds list -->

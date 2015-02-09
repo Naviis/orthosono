@@ -69,19 +69,21 @@ var Player = function(){
     this.$e_prevBtn = $('#player_prev');
     this.$e_nextBtn = $('#player_next');
     this.$e_countDown = $('.player_countDown');
-    this.c_activeCountDown = 'active';
     this.$e_playlist = $('.player_playlist');
-    this.c_playedElement = 'active';
+    this.c_activeClass = 'active';
     this.$e_menuLoad = $('.menu_load');
     this.$e_menuSave = $('.menu_save');
     this.$e_menuHelp = $('.menu_help');
-    this.$e_savesList = $('.saves_list');
+    this.$e_newPreset = $('.presets_new');
+    this.$e_presetsList = $('.presets_list');
+    this.$e_presetName = $('.preset_name');
         
     // Misc
     this.silence_delay = 0;
     this.silence_timeout = null;
     this.silence_interval = null;
     this.order = 'normal';
+    this.name = 'Réglage par défaut';
     
     // LocalStorage
     this.localStorage = false;
@@ -98,6 +100,7 @@ Player.prototype = {
         this.loadPresets();
         this.generateLibrary();
         this.generatePlaylist();
+        this.generatePresets();
         this.addEvents();
         
         return this;
@@ -140,6 +143,16 @@ Player.prototype = {
         
     },
     
+    // Generate presets elements 
+    generatePresets : function(){         
+        this.$e_presetsList.html('');
+        for( var i = 0; i < this.presets.length; i++ ){
+            var current_preset = this.presets[i];
+            var li = $('<li></li>').attr('data-id',i).html(current_preset.name);
+            this.$e_presetsList.append(li);
+        } 
+    },
+    
     // Add events on player's elements
     addEvents : function(){        
         
@@ -157,7 +170,7 @@ Player.prototype = {
         // Remove sound from playlist
         this.$e_selectedSounds.on('click','li',function(){
             self.reset();
-            var index = $(this).attr('data-index');console.log(index)
+            var index = $(this).attr('data-index');
             self.playlist.splice(index,1);     
             self.generatePlaylist();
             self.generateSelectedSounds();
@@ -176,6 +189,11 @@ Player.prototype = {
             self.reset();
             var val = isNaN(parseInt($(this).val())) ? 0 : parseInt($(this).val());
             self.silence_delay = val;
+        });
+        
+        //Change name
+        this.$e_presetName.keyup(function(){
+            self.name = $(this).val();
         });
         
         //Prev Button
@@ -206,8 +224,13 @@ Player.prototype = {
             
         });
         
-        // Handle saves list
-        this.$e_savesList.on('click','li',function(){
+        // Handle presets new button
+        this.$e_newPreset.on('click',function(){
+            self.$e_presetName.addClass(self.c_activeClass);
+        });
+        
+        // Handle presets list
+        this.$e_presetsList.on('click','li',function(){
             var id = $(this).attr('data-id');
             self.savePreset(id);
         });
@@ -258,11 +281,11 @@ Player.prototype = {
     changePlayedElementInPlaylist : function(){
         var self = this;
         this.$e_playlist.find('li').each(function(){
-            if($(this).hasClass(self.c_playedElement)){
-                $(this).removeClass(self.c_playedElement);
+            if($(this).hasClass(self.c_activeClass)){
+                $(this).removeClass(self.c_activeClass);
             }
             if($(this).attr('data-index') == self.current){
-                $(this).addClass(self.c_playedElement);
+                $(this).addClass(self.c_activeClass);
             }
         });
  
@@ -301,13 +324,13 @@ Player.prototype = {
         var self = this;
         var time = this.silence_delay;
         this.$e_countDown.find('span').html(time);
-        this.$e_countDown.addClass(this.c_activeCountDown);
+        this.$e_countDown.addClass(this.c_activeClass);
         this.silence_interval = window.setInterval(function(){
             if( --time > 0 ){
                 self.$e_countDown.find('span').html(time);
             }else{
                 clearInterval(self.silence_interval);
-                self.$e_countDown.removeClass(self.c_activeCountDown);
+                self.$e_countDown.removeClass(self.c_activeClass);
             }                
         },1000);
     },
@@ -329,33 +352,37 @@ Player.prototype = {
         //window.localStorage.clear();
         if( this.localStorage && window.localStorage.getItem('presets')){
             this.presets = JSON.parse(window.localStorage.getItem('presets'));
-            console.log(this.presets);
+            this.generatePresets();
         }else{
             window.localStorage.setItem('presets',JSON.stringify(this.presets) );
         }
     },
     
+    // Save  a preset ask for erase if already defined
     savePreset : function(id){
         
-        var newId = this.presets.length;
-        
-        for( var i = 0 ; i < this.presets.length; i++ ){
-            var currentPreset = this.presets[i];
-            if( currentPreset.id == id ){
-                newId = id;
-            }
-        }
-        
         var preset = {
-            id : newId,
+            id : this.presets.length,
+            name : this.name,
             playlist : this.playlist,
             order : this.order,
             silence_delay : this.silence_delay
         };
         
-        this.presets.push(preset);
+        for( var i = 0 ; i < this.presets.length; i++ ){
+            var currentPreset = this.presets[i];
+            if( currentPreset.id == id ){
+                if( window.confirm('Cette configuration existe déjà, la remplacer ?') ){
+                    preset.id = id;
+                }
+            }
+        }
+
+        this.presets[preset.id] = preset;
         
         window.localStorage.setItem('presets',JSON.stringify(this.presets) );
+        
+        this.generatePresets();
     },
     
     // Shuffle array
