@@ -14,6 +14,36 @@
 		<link rel="stylesheet" href="css/main.css" media="all">
 </head>
 <body>
+  
+  <!-- Menu -->
+  
+  <div class="menu_buttonWrapper">
+      <div class="menu_butonText">Menu</div>
+      <button class="menu_button">-</button>
+  </div>
+   
+   <nav class="menu">
+       <div class="menu_close">&times;</div>
+       <ul>
+           <li class="menu_load">Charger une configuration</li>
+           <li class="menu_save">Sauvegarder la configuration</li>
+           <li class="menu_help">Aide</li>
+       </ul>
+   </nav>
+   
+   <!-- Saves -->
+   
+   <div class="saves">
+       
+       <ul class="saves_list">
+           <li data-id="-1">Nouvelle configuration</li>
+       </ul>
+       
+   </div>
+   
+   <div class="saves_prompt">
+       <input type="text" class="saves_name" placeholder="Nom de votre configuration">
+   </div>
     
     <!-- Sounds list -->
     
@@ -59,6 +89,7 @@
 
     <script src="js/min/zepto.min.js" defer></script>
     <script src="js/min/player.min.js" defer></script>
+    <script src="js/min/ui.min.js" defer></script>
 	
 </body>
 </html>

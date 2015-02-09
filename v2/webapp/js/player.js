@@ -72,12 +72,20 @@ var Player = function(){
     this.c_activeCountDown = 'active';
     this.$e_playlist = $('.player_playlist');
     this.c_playedElement = 'active';
+    this.$e_menuLoad = $('.menu_load');
+    this.$e_menuSave = $('.menu_save');
+    this.$e_menuHelp = $('.menu_help');
+    this.$e_savesList = $('.saves_list');
         
     // Misc
     this.silence_delay = 0;
     this.silence_timeout = null;
     this.silence_interval = null;
     this.order = 'normal';
+    
+    // LocalStorage
+    this.localStorage = false;
+    this.presets = [];
     
     return this.init();
 };
@@ -86,6 +94,8 @@ Player.prototype = {
     
     init : function(){
         
+        this.checkLocalStorage();
+        this.loadPresets();
         this.generateLibrary();
         this.generatePlaylist();
         this.addEvents();
@@ -190,6 +200,17 @@ Player.prototype = {
         this.e_player.addEventListener('ended', function(){
             self.changeCurrentSound('next');            
         });
+        
+        // Handle save link
+        this.$e_menuSave.click(function(){
+            
+        });
+        
+        // Handle saves list
+        this.$e_savesList.on('click','li',function(){
+            var id = $(this).attr('data-id');
+            self.savePreset(id);
+        });
     },
     
     // Change current Sound    
@@ -289,6 +310,52 @@ Player.prototype = {
                 self.$e_countDown.removeClass(self.c_activeCountDown);
             }                
         },1000);
+    },
+    
+    // Check if localstorage exists
+    checkLocalStorage : function(){
+        this.localStorage = typeof localStorage != 'undefined';
+        
+        //hide menu elements
+        if( !this.localStorage ){
+            this.$e_menuLoad = $('.menu_load').remove();
+            this.$e_menuSave = $('.menu_save').remove();
+        }
+        
+    },
+    
+    // Load presets from localstorage
+    loadPresets : function(){
+        //window.localStorage.clear();
+        if( this.localStorage && window.localStorage.getItem('presets')){
+            this.presets = JSON.parse(window.localStorage.getItem('presets'));
+            console.log(this.presets);
+        }else{
+            window.localStorage.setItem('presets',JSON.stringify(this.presets) );
+        }
+    },
+    
+    savePreset : function(id){
+        
+        var newId = this.presets.length;
+        
+        for( var i = 0 ; i < this.presets.length; i++ ){
+            var currentPreset = this.presets[i];
+            if( currentPreset.id == id ){
+                newId = id;
+            }
+        }
+        
+        var preset = {
+            id : newId,
+            playlist : this.playlist,
+            order : this.order,
+            silence_delay : this.silence_delay
+        };
+        
+        this.presets.push(preset);
+        
+        window.localStorage.setItem('presets',JSON.stringify(this.presets) );
     },
     
     // Shuffle array
