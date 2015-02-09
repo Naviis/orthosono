@@ -75,7 +75,9 @@ var Player = function(){
     this.$e_menuSave = $('.menu_save');
     this.$e_menuHelp = $('.menu_help');
     this.$e_newPreset = $('.presets_new');
-    this.$e_presetsList = $('.presets_list');
+    this.$e_presetsLoadList = $('.presets_loadList');
+    this.$e_presetsSaveList = $('.presets_saveList');
+    this.$e_presetPrompt = $('.presets_prompt');
     this.$e_presetName = $('.preset_name');
         
     // Misc
@@ -100,7 +102,6 @@ Player.prototype = {
         this.loadPresets();
         this.generateLibrary();
         this.generatePlaylist();
-        this.generatePresets();
         this.addEvents();
         
         return this;
@@ -145,12 +146,30 @@ Player.prototype = {
     
     // Generate presets elements 
     generatePresets : function(){         
-        this.$e_presetsList.html('');
+        this.$e_presetsSaveList.html('');
+        this.$e_presetsLoadList.html('');
         for( var i = 0; i < this.presets.length; i++ ){
             var current_preset = this.presets[i];
             var li = $('<li></li>').attr('data-id',i).html(current_preset.name);
-            this.$e_presetsList.append(li);
+            var li2 = li.clone();
+            this.$e_presetsSaveList.append(li);
+            this.$e_presetsLoadList.append(li2);
         } 
+    },
+    
+    // Update order radio button from value
+    updateOrder : function(){
+        var self = this;
+        this.$e_order.each(function(){
+           if( $(this).val() == self.order ){
+               $(this).prop('checked',true);
+           } 
+        });
+    },
+    
+    // Update delay input from value
+    updateDelay : function(){
+        this.$e_delay.val(this.silence_delay);
     },
     
     // Add events on player's elements
@@ -192,7 +211,12 @@ Player.prototype = {
         });
         
         //Change name
-        this.$e_presetName.keyup(function(){
+        this.$e_presetName.keyup(function(e){
+            if( e.which == 13 ){
+                self.$e_presetPrompt.removeClass(self.c_activeClass);
+                self.savePreset(-1);
+            }
+            
             self.name = $(this).val();
         });
         
@@ -221,18 +245,29 @@ Player.prototype = {
         
         // Handle save link
         this.$e_menuSave.click(function(){
-            
+            self.$e_presetsSaveList.addClass(self.c_activeClass);
+        });
+        
+        // Handle load link
+        this.$e_menuLoad.click(function(){
+            self.$e_presetsLoadList.addClass(self.c_activeClass);
         });
         
         // Handle presets new button
         this.$e_newPreset.on('click',function(){
-            self.$e_presetName.addClass(self.c_activeClass);
+            self.$e_presetPrompt.addClass(self.c_activeClass);
         });
         
-        // Handle presets list
-        this.$e_presetsList.on('click','li',function(){
+        // Handle presets save list
+        this.$e_presetsSaveList.on('click','li',function(){
             var id = $(this).attr('data-id');
             self.savePreset(id);
+        });
+        
+        // Handle presets load list
+        this.$e_presetsLoadList.on('click','li',function(){
+            var id = $(this).attr('data-id');
+            self.loadPreset(id);
         });
     },
     
@@ -369,12 +404,11 @@ Player.prototype = {
             silence_delay : this.silence_delay
         };
         
-        for( var i = 0 ; i < this.presets.length; i++ ){
-            var currentPreset = this.presets[i];
-            if( currentPreset.id == id ){
-                if( window.confirm('Cette configuration existe déjà, la remplacer ?') ){
-                    preset.id = id;
-                }
+        if( typeof this.presets[id] != 'undefined' ){
+            if( window.confirm('Cette configuration existe déjà, la remplacer ?') ){
+                preset.id = id;
+            }else{
+                return;
             }
         }
 
@@ -383,6 +417,26 @@ Player.prototype = {
         window.localStorage.setItem('presets',JSON.stringify(this.presets) );
         
         this.generatePresets();
+    },
+    
+    //Load a preset
+    loadPreset : function(id){
+         if( typeof this.presets[id] != 'undefined' ){
+            if( window.confirm('Charger cette configuration ? Les réglages courant seront supprimés.') ){
+                var currentPreset = this.presets[id];
+                this.name = currentPreset.name,
+                this.playlist = currentPreset.playlist,
+                this.order = currentPreset.order,
+                this.silence_delay = currentPreset.silence_delay
+                this.reset();
+                this.generateSelectedSounds();
+                this.generatePlaylist();
+                this.updateOrder();
+                this.updateDelay();
+            }else{
+                return;
+            }
+        } 
     },
     
     // Shuffle array

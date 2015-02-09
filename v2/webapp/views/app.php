@@ -31,15 +31,18 @@
        </ul>
    </nav>
    
-   <!-- Saves -->
+   <!-- presets -->
    
-   <div class="saves">
-       <button class="presets_new">Nouveau réglage</button>
-       <ul class="presets_list"></ul>
-       
+   <div class="presets_load">
+       <ul class="presets_loadList"></ul>       
    </div>
    
-   <div class="saves_prompt">
+   <div class="presets_save">
+       <button class="presets_new">Nouveau réglage</button>
+       <ul class="presets_saveList"></ul>       
+   </div>
+   
+   <div class="presets_prompt">
        <input type="text" class="preset_name" placeholder="Nom de votre configuration">
    </div>
     
