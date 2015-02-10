@@ -1,0 +1,144 @@
+.presets_load, .presets_save{
+    visibility: hidden;
+    position: fixed;
+    top: 50%;
+    left: 0;
+    right: 0;
+    padding: 50px;
+    margin: 0 auto;
+    max-width: 600px;
+    
+    background-color: @c_main;
+    color: @c_white;
+    
+    .box-shadow();
+    transform: translateY(100vh) translateZ(0);
+    transition: all ease-in-out .5s;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    perspective: 1px;
+    
+    z-index: 5;
+    
+    p{
+        line-height: 22px;
+    }
+    
+    ul{
+        margin: 20px 0;
+        padding: 0;
+    }
+    
+    li{
+        padding: 10px;
+        padding-left: 0;
+        font-size: 18px;
+        font-weight: 100;
+        list-style: none;
+
+        cursor: pointer;
+        
+        transition: all ease .3s;
+
+        &:before{
+            content: '\e095';
+            display: inline-block;
+            vertical-align: middle;
+            font-family: 'icomoon';
+            margin-right: 10px;
+        }
+        
+        &:hover{
+            padding-left: 10px;
+            background-color: @c_second;
+        }
+    }
+}
+
+.presets_save{
+    .saveMenuShown &{
+        visibility: visible;
+        transform: translateY(-50%) translateZ(0);
+    }
+}
+
+    .presets_new{
+        position: absolute;
+        bottom: -27px;
+        right: -27px;
+        .floating-button;
+    }
+
+.presets_load{
+    .loadMenuShown &{
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(-50%) translateZ(0);
+    }
+}
+
+    .presets_saveClose, .presets_loadClose,.presets_promptClose{
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        
+        color: @c_white;
+        font-size: 25px;
+        line-height: 25px;
+        
+        transition: all ease .3s;
+        
+        cursor: pointer;
+        
+        &:hover{
+            color: @c_second;
+        }
+    }
+    
+    .presets_promptClose{
+        color: @c_main;        
+    }
+    
+.presets_prompt{
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    background-color: @c_white;
+    
+    z-index: 6;
+    
+    .box-shadow();
+    transform: scale(0,0);
+    transition: all ease-in-out .5s;
+    
+    &.active{
+        visibility: visible;
+        transform: scale(1,1);
+    }
+    
+    input{
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        padding: 20px 0;
+        width: 500px;
+        
+        background-color: transparent;
+        color: @c_main;
+        font-size: 30px;
+        font-weight: 100;
+        
+        border: 0;
+        border-bottom: 2px solid @c_second;
+        
+        outline: none;
+        
+    }
+
+}

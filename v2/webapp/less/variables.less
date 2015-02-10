@@ -2,3 +2,44 @@
 @c_second: #FFC107;
 
 @c_white: #fff;
+
+.box-shadow(){
+    box-shadow: 0 0 3px rgba(0,0,0,.3), 0 2px 3px rgba(0,0,0,.2);
+    
+    &:hover{
+        box-shadow: 0 0 3px rgba(0,0,0,.3), 0 5px 3px rgba(0,0,0,.2);
+    }
+}
+
+.floating-button(){
+    width: 55px;
+    height: 55px;
+
+    background-color: @c_white;
+    color: @c_main;
+    font-size: 25px;
+    line-height: 55px;
+
+    border: 0;
+    border-radius: 50%;
+
+    cursor: pointer;
+    outline: none;
+    z-index: 1;
+
+    .box-shadow();
+    transition: all ease .3s;
+
+    &:active,&:focus{
+        background-color: @c_second;
+        color: @c_white;
+    }
+}
+
+.cf{
+    &:after{
+        content: '';
+        display: block;
+        clear: both;
+    }
+}

@@ -1,0 +1,84 @@
+.properties_listsWrapper{
+    .cf;    
+}
+
+    .properties_library, .properties_selectedSounds{
+        float: left;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        width: 47.5%;
+        height: 300px;
+
+        overflow: auto;
+
+        box-shadow: 0 0 3px rgba(0,0,0,.3);
+
+        li{
+            position: relative;
+            padding: 10px;
+
+            list-style: none;
+            text-transform: capitalize;
+
+            transition: all ease .2s;
+
+            cursor: pointer;
+            overflow: hidden;
+
+            &:before{
+                position: absolute;
+                left: 5px;
+                top: 5px;
+
+                color: @c_white;
+                font-family: 'icomoon';
+                font-size: 25px;
+
+                transition: all ease .5s;
+                transform: translateX(-150%);
+            }
+
+            &:hover{
+                padding-left: 40px;
+                background-color: @c_second;
+                color: @c_white;
+
+                &:before{
+                    transform: translateX(0);
+                }
+            }
+        }
+    }
+
+    .properties_library{
+        margin-right: 5%;
+
+        li{
+            &:before{
+                content:'\e040';
+            }
+        }
+    }
+
+    .properties_selectedSounds{
+        li{            
+            &:before{
+                content:'\e041';
+            }
+        }
+    }
+
+.properties_delay{
+    margin-right: 10px;
+    width: 50px;
+    
+    color: @c_second;
+    font-size: 30px;
+    text-align: right;
+    
+    border: 0;
+    border-bottom: 1px solid @c_main;
+    
+    outline: none;
+}

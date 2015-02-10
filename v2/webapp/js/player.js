@@ -61,6 +61,7 @@ var Player = function(){
     this.current = 0;
     
     // Selectors
+    this.$e_body = $('body');
     this.$e_library = $('.properties_library');
     this.$e_selectedSounds = $('.properties_selectedSounds');
     this.$e_order = $('.properties_order');
@@ -71,6 +72,7 @@ var Player = function(){
     this.$e_countDown = $('.player_countDown');
     this.$e_playlist = $('.player_playlist');
     this.c_activeClass = 'active';
+    this.c_rippleClass = 'g_ripple';
     this.$e_menuLoad = $('.menu_load');
     this.$e_menuSave = $('.menu_save');
     this.$e_menuHelp = $('.menu_help');
@@ -113,16 +115,19 @@ Player.prototype = {
             var current_sound = this.sounds_array[i];
             var li = $('<li></li>').attr('data-index',i).html(current_sound.name);
             this.$e_library.append(li);
+            li.addClass(this.c_rippleClass);
         } 
     },
     
     // Generate selected sounds elements  
-    generateSelectedSounds : function(){   
+    generateSelectedSounds : function(){  
+
         this.$e_selectedSounds.html(''); 
         for( var i = 0; i < this.playlist.length; i++ ){
             var current_sound = this.playlist[i];
             var li = $('<li></li>').attr('data-index',i).html(current_sound.name);
             this.$e_selectedSounds.append(li);
+            li.addClass(this.c_rippleClass);
         } 
     },
         
@@ -137,11 +142,18 @@ Player.prototype = {
                 var current_sound = soundsList[i];
                 var li = $('<li></li>').attr('data-index',i).html(current_sound.name);
                 this.$e_playlist.append(li);
+                li.addClass(this.c_rippleClass);
             } 
             this.changePlayedElementInPlaylist();
             this.changePlayerSoundUrl();
         }
         
+    },
+    
+    animate : function( el, cssClass, index , time ){
+        window.setTimeout(function(){
+            el.addClass(cssClass);  
+        },time*index);
     },
     
     // Generate presets elements 
@@ -150,8 +162,9 @@ Player.prototype = {
         this.$e_presetsLoadList.html('');
         for( var i = 0; i < this.presets.length; i++ ){
             var current_preset = this.presets[i];
-            var li = $('<li></li>').attr('data-id',i).html(current_preset.name);
+            var li = $('<li></li>').attr('data-id',i).attr('data-name',current_preset.name).html(current_preset.name);
             var li2 = li.clone();
+            li.addClass(this.c_rippleClass);
             this.$e_presetsSaveList.append(li);
             this.$e_presetsLoadList.append(li2);
         } 
@@ -215,6 +228,7 @@ Player.prototype = {
             if( e.which == 13 ){
                 self.$e_presetPrompt.removeClass(self.c_activeClass);
                 self.savePreset(-1);
+                $(this).val('');
             }
             
             self.name = $(this).val();
@@ -245,22 +259,26 @@ Player.prototype = {
         
         // Handle save link
         this.$e_menuSave.click(function(){
-            self.$e_presetsSaveList.addClass(self.c_activeClass);
+            self.$e_body.addClass('saveMenuShown');
         });
         
         // Handle load link
         this.$e_menuLoad.click(function(){
-            self.$e_presetsLoadList.addClass(self.c_activeClass);
+            self.$e_body.addClass('loadMenuShown');
         });
         
         // Handle presets new button
         this.$e_newPreset.on('click',function(){
             self.$e_presetPrompt.addClass(self.c_activeClass);
+            window.setTimeout(function(){                
+                self.$e_presetName.get(0).focus();
+            },600);
         });
         
         // Handle presets save list
         this.$e_presetsSaveList.on('click','li',function(){
             var id = $(this).attr('data-id');
+            self.name = $(this).attr('data-name');
             self.savePreset(id);
         });
         
@@ -338,7 +356,8 @@ Player.prototype = {
     // Stop player
     stop : function(){
         this.e_player.pause();
-        this.e_player.currentTime = 0;
+        if( this.e_player.currentTime )
+            this.e_player.currentTime = 0;
         clearTimeout(this.silence_timeout);
     },
         
@@ -405,7 +424,7 @@ Player.prototype = {
         };
         
         if( typeof this.presets[id] != 'undefined' ){
-            if( window.confirm('Cette configuration existe déjà, la remplacer ?') ){
+            if( window.confirm('Ces paramètres déjà, la remplacer ?') ){
                 preset.id = id;
             }else{
                 return;
@@ -422,7 +441,7 @@ Player.prototype = {
     //Load a preset
     loadPreset : function(id){
          if( typeof this.presets[id] != 'undefined' ){
-            if( window.confirm('Charger cette configuration ? Les réglages courant seront supprimés.') ){
+            if( window.confirm('Charger ces paramètres ?') ){
                 var currentPreset = this.presets[id];
                 this.name = currentPreset.name,
                 this.playlist = currentPreset.playlist,
