@@ -470,6 +470,7 @@ body {
 |*-----------------------------------------*/
 .wpr {
   margin: 0 auto;
+  padding: 0 10px;
   width: 100%;
   max-width: 980px;
 }
@@ -716,6 +717,8 @@ header span {
 .presets_save ul {
   margin: 20px 0;
   padding: 0;
+  max-height: 400px;
+  overflow: auto;
 }
 .presets_load li,
 .presets_save li {
@@ -908,6 +911,46 @@ header span {
 .properties_selectedSounds li:before {
   content: '\e041';
 }
+.properties_orderWrapper label {
+  position: relative;
+  padding: 0 30px;
+  font-size: 15px;
+}
+.properties_orderWrapper label:before,
+.properties_orderWrapper label:after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+}
+.properties_orderWrapper label:before {
+  top: -4px;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #ffc107;
+}
+.properties_orderWrapper label:after {
+  visibility: hidden;
+  top: 0px;
+  left: 4px;
+  width: 16px;
+  height: 16px;
+  background-color: #ffc107;
+  -webkit-transition: all ease .3s;
+  transition: all ease .3s;
+  -webkit-transform: scale(0, 0);
+  -ms-transform: scale(0, 0);
+  transform: scale(0, 0);
+}
+.properties_orderWrapper input[type=radio] {
+  display: none;
+}
+.properties_orderWrapper input[type=radio]:checked + label:after {
+  visibility: visible;
+  -webkit-transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+  transform: scale(1, 1);
+}
 .properties_delay {
   margin-right: 10px;
   width: 50px;
@@ -917,4 +960,118 @@ header span {
   border: 0;
   border-bottom: 1px solid #333333;
   outline: none;
+}
+.player_wrapper {
+  position: relative;
+  margin-top: 50px;
+  padding: 50px 0;
+  background-color: #333333;
+  color: #ffffff;
+  text-align: center;
+  overflow: hidden;
+}
+.player_wrapper h2 {
+  margin-top: 0;
+  text-align: left;
+}
+.player_wrapper audio {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 5px 20px;
+  width: 80%;
+}
+.player_wrapper button {
+  display: inline-block;
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  background-color: #ffffff;
+  color: #333333;
+  font-size: 25px;
+  line-height: 40px;
+  text-align: center;
+  border: 0;
+  border-radius: 50%;
+  outline: none;
+  -webkit-transition: all ease .3s;
+  transition: all ease .3s;
+}
+.player_wrapper button:hover {
+  background-color: #ffc107;
+  color: #ffffff;
+}
+.player_playlist {
+  width: 80%;
+  margin: 20px auto 0;
+  padding: 0;
+}
+.player_playlist li {
+  position: relative;
+  padding: 10px;
+  text-align: left;
+  text-transform: capitalize;
+  border-bottom: 1px solid #4d4d4d;
+  -webkit-transition: all ease .3s;
+  transition: all ease .3s;
+  cursor: pointer;
+}
+.player_playlist li:before {
+  content: '\e095';
+  visibility: hidden;
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-family: 'icomoon';
+  font-size: 20px;
+  -webkit-transition: all ease .3s;
+  transition: all ease .3s;
+  -webkit-transform: translateX(-150%);
+  -ms-transform: translateX(-150%);
+  transform: translateX(-150%);
+}
+.player_playlist li.active,
+.player_playlist li:hover {
+  background-color: #ffc107;
+  padding-left: 40px;
+}
+.player_playlist li.active:before,
+.player_playlist li:hover:before {
+  visibility: visible;
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+}
+.player_countDown {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-top: 50px;
+  width: 100%;
+  height: 100%;
+  background-color: #333333;
+  font-size: 18px;
+  font-weight: 100;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  -webkit-transform: translateY(-120%);
+  -ms-transform: translateY(-120%);
+  transform: translateY(-120%);
+  -webkit-transition: all ease-in 0.5s;
+  transition: all ease-in 0.5s;
+  z-index: 1;
+}
+.player_countDown.active {
+  visibility: visible;
+  -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
+  transform: translateY(0);
+}
+.player_countDown span {
+  display: inline-block;
+  padding-bottom: 5px;
+  margin: 0 10px;
+  font-size: 30px;
+  font-weight: 300;
+  border-bottom: 1px solid #ffc107;
 }

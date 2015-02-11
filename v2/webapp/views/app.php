@@ -79,38 +79,44 @@
               
               <h2 class="g_secondTitle icon-shuffle">Sélectionner l'ordre de lecture</h2>
               
-              <input type="radio" name="order" value="normal" class="properties_order" id="properties_orderNormal" checked> <label for="properties_orderNormal">Normal</label>
-              <input type="radio" name="order" value="random" class="properties_order" id="properties_orderRand"> <label for="properties_orderRand">Aléatoire</label>
+              <div class="properties_orderWrapper">
+                  <input type="radio" name="order" value="normal" class="properties_order" id="properties_orderNormal" checked> <label for="properties_orderNormal">Normal</label>
+                  <input type="radio" name="order" value="random" class="properties_order" id="properties_orderRand"> <label for="properties_orderRand">Aléatoire</label>
+              </div>
               
               <h2 class="g_secondTitle icon-clock">Choisir l'intervalle de temps entre chaque son</h2>
               
               <input type="text" id="properties_delay" class="properties_delay" value="0"><label for="properties_delay">sec</label>
               
           </div>
-          
-          <!-- Player -->
-          
-          <div class="player_wrapper">
-             
-              <h2 class="g_secondTitle icon-microphone">Lancer la lecture</h2>
-              
-              <div class="player_countDown">
-                  Lecture du prochain son dans
-                  <span>0</span>
-                  seconde(s)
-              </div>
-              
-              <button id="player_prev">&lt;</button>
-              <audio controls id="player">
-                  Votre navigateur ne permet pas de l'utilisation d'Orthosono. Veuillez le mettre à jour.
-              </audio>
-              <button id="player_next">&gt;</button>
-              
-              <ul class="player_playlist"></ul>
-              
-          </div><!-- /player_wrapper -->
     
     </div><!-- /wpr -->
+    
+    <!-- Player -->
+          
+    <div class="player_wrapper">
+
+        <div class="wpr">
+
+            <h2 class="g_secondTitle icon-microphone">Lancer la lecture</h2>
+
+            <div class="player_countDown">
+            Lecture du prochain son dans
+            <span>0</span>
+            seconde(s)
+            </div>
+
+            <button id="player_prev" class="icon-rewind g_ripple"></button>
+            <audio controls id="player">
+            Votre navigateur ne permet pas de l'utilisation d'Orthosono. Veuillez le mettre à jour.
+            </audio>
+            <button id="player_next" class="icon-fast-forward g_ripple"></button>
+
+            <ul class="player_playlist"></ul>
+            
+        </div>
+        
+    </div><!-- /player_wrapper -->
     
     <div class="g_overlay"></div>
     

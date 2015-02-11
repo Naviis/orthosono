@@ -69,6 +69,50 @@
         }
     }
 
+.properties_orderWrapper{
+    label{
+        position: relative;
+        padding: 0 30px;
+        
+        font-size: 15px;
+        
+        &:before, &:after{
+            content: '';
+            position: absolute;
+            
+            border-radius: 50%;
+        }
+        
+        &:before{
+            top: -4px;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            border: 2px solid @c_second;
+        }
+        &:after{
+            visibility: hidden;
+            top: 0px;
+            left: 4px;
+            width: 16px;
+            height: 16px;
+            background-color: @c_second;
+            
+            transition: all ease .3s;
+            transform: scale(0,0);
+        }
+    }
+    
+    input[type=radio]{
+        display: none;
+        
+        &:checked + label:after{
+            visibility: visible;
+            transform: scale(1,1);
+        }
+    }
+}
+
 .properties_delay{
     margin-right: 10px;
     width: 50px;

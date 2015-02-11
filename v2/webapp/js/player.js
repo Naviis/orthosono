@@ -424,7 +424,7 @@ Player.prototype = {
         };
         
         if( typeof this.presets[id] != 'undefined' ){
-            if( window.confirm('Ces paramètres déjà, la remplacer ?') ){
+            if( window.confirm('Ces paramètres existent déjà, la remplacer ?') ){
                 preset.id = id;
             }else{
                 return;
@@ -452,6 +452,7 @@ Player.prototype = {
                 this.generatePlaylist();
                 this.updateOrder();
                 this.updateDelay();
+                this.$e_body.removeClass('loadMenuShown');
             }else{
                 return;
             }
