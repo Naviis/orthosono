@@ -2,8 +2,13 @@
 // Button
 .menu_buttonWrapper{
     position: absolute;
-    top: 43px;
+    top: 75px;
     right: 15px;
+    
+    @media screen and(max-width: 640px){
+        top: 30px;
+        right: 10px;
+    }
 }
     .menu_button{
         .floating-button;
@@ -25,6 +30,10 @@
     transform: translateX(100%);
     
     z-index: 5;
+    
+    @media screen and(max-width: 640px){
+        width: 320px;
+    }
     
     .menuShown &{
         visibility: visible;

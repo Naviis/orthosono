@@ -19,7 +19,7 @@
     <!-- Header -->
     
     <header>
-        <h1>Ortho<span>sono</span></h1>
+        <h1><img src="images/logo_white_small.png" alt="Orthosono"></h1>
         
         <div class="menu_buttonWrapper">
             <button class="menu_button icon-layers"></button>
@@ -132,6 +132,22 @@
     </div><!-- /player_wrapper -->
     
     <div class="g_overlay"></div>
+    
+    
+    <div class="g_loader g_loader_leftPanel active">
+        <div class="g_loader_soundWrapper">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div class="g_loader g_loader_rightPanel active">
+        <div class="g_loader_soundWrapper">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
     
     <script src="js/min/zepto.min.js" defer></script>
     <script src="js/min/player.min.js" defer></script>

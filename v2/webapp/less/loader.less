@@ -1,0 +1,171 @@
+.g_loader{
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    
+    background-color: @c_main;
+    
+    box-shadow: 0 0 3px rgba(0,0,0,.3);
+
+    z-index: 10;
+    
+    overflow: hidden;
+    
+    transition: all cubic-bezier(1,.02,1,.55) .8s;
+    
+    &.active{
+        visibility: visible;
+        transform: none;
+    }
+}
+
+.g_loader_rightPanel{
+    right: 0;
+    transform: translateX(120%);
+}
+
+.g_loader_leftPanel{
+    left: 0;
+    transform: translateX(-120%);
+}
+
+    .g_loader_soundWrapper{  
+        position: absolute;
+        top: 50%;
+        width: 150px;
+        height: 150px;
+        
+        background-color: @c_white;
+        
+        border-radius: 50%;      
+        
+        .g_loader_leftPanel &{
+            right: 0;
+            transform: translate3d(50%,-50%,0);
+        }
+        
+        .g_loader_rightPanel &{
+            left: 0;
+            transform: translate3d(-50%,-50%,0);
+        }
+        
+        span{
+            display: inline-block;
+            position: absolute;
+            bottom: 50px;
+            width: 5px;
+            height: 0px;
+            
+            background-color: @c_main;
+            
+            border-radius: 3px;
+            
+            animation: soundAnimation cubic-bezier(1,.02,1,.55) .8s forwards infinite;
+
+            .g_loader_leftPanel &{
+                &:nth-child(1){
+                    right: 80px;
+                    animation: soundAnimationBig cubic-bezier(1,.02,1,.55)  .8s forwards infinite;
+                    animation-delay: .2s;
+                }
+                
+                &:nth-child(2){
+                    right: 90px;
+                    animation-delay: .1s;
+                }
+                
+                &:nth-child(3){
+                    right: 100px;
+                    animation: soundAnimationSmall cubic-bezier(1,.02,1,.55)  .8s forwards infinite;
+                    animation-delay: .3s;
+                }
+            }
+            
+            .g_loader_rightPanel &{
+                &:nth-child(1){
+                    left: 80px;    
+                    animation: soundAnimationBig cubic-bezier(1,.02,1,.55)  .8s forwards infinite;
+                    animation-delay: .1s;
+                }
+                
+                &:nth-child(2){
+                    left: 90px;
+                    animation-delay: .2s;
+                }
+                
+                &:nth-child(3){
+                    left: 100px;
+                    animation: soundAnimationSmall cubic-bezier(1,.02,1,.55)  .8s forwards infinite;
+                    animation-delay: .1s;
+                }
+            }
+        }
+    }
+
+@keyframes soundAnimation{
+    0%{
+        height: 0px;
+    }
+    
+    25%{
+        height: 50px;
+    }
+    
+    50%{
+        height: 30px;
+    }
+    
+    75%{
+        height: 40px;
+    }
+    
+    100%{
+        height: 0px;
+    }
+}
+
+@keyframes soundAnimationBig{
+    0%{
+        height: 0px;
+    }
+    
+    25%{
+        height: 60px;
+    }
+    
+    50%{
+        height: 40px;
+    }
+    
+    75%{
+        height: 50px;
+    }
+    
+    100%{
+        height: 0px;
+    }
+}
+
+@keyframes soundAnimationSmall{
+    0%{
+        height: 0px;
+    }
+    
+    25%{
+        height: 20px;
+    }
+    
+    50%{
+        height: 10px;
+    }
+    
+    75%{
+        height: 30px;
+    }
+    
+    100%{
+        height: 0px;
+    }
+}

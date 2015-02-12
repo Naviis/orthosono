@@ -1,5 +1,13 @@
 $(function(){
     
+    // Loader
+    
+    window.setTimeout(function(){
+        $('.g_loader').removeClass('active');
+    },1000);
+    
+    // Buttons
+    
     $('.menu_button').click(function(){
        $('body').toggleClass('menuShown'); 
     });    
