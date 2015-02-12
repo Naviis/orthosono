@@ -20,6 +20,10 @@ $(function(){
        $('body').toggleClass('loadMenuShown'); 
     });
     
+    $('.presets_deleteClose').click(function(){
+       $('body').toggleClass('deleteMenuShown'); 
+    });
+    
     $('.presets_promptClose').click(function(){
        $(this).parent().toggleClass('active'); 
     });  

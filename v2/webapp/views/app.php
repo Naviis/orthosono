@@ -36,6 +36,7 @@
              <ul>
                  <li class="menu_save icon-cloud-upload g_ripple">Enregistrer les paramètres...</li>
                  <li class="menu_load icon-cloud-download g_ripple">Charger les paramètres...</li>
+                 <li class="menu_delete icon-trash g_ripple">Supprimer les paramètres...</li>
                  <li class="menu_help icon-help g_ripple">Aide</li>
              </ul>
          </nav>
@@ -60,10 +61,22 @@
                  <ul class="presets_saveList"></ul>
              </div>       
          </div>
+           
+         <div class="presets_delete">
+            <div class="presets_deleteClose icon-cross"></div>
+             <div class="presets_boxContent">
+                 <h2 class="g_secondTitle icon-cloud-upload">Supprimer des paramètres</h2>
+                 <p>Supprimez des paramètres déjà existants.</p>
+                 <ul class="presets_deleteList"></ul>
+             </div>       
+         </div>
          
          <div class="presets_prompt">
              <div class="presets_promptClose icon-cross"></div>
-             <input type="text" class="preset_name" placeholder="Nom de vos paramètres" value="">
+             <div class="presets_promptContent">
+                 <input type="text" class="preset_name" placeholder="Nom de vos paramètres" value="">
+                 <button class="icon-arrow-right preset_name_button g_ripple"></button>
+             </div>
          </div>
           
           <!-- Sounds list -->

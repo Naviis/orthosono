@@ -1,4 +1,4 @@
-.presets_load, .presets_save{
+.presets_load, .presets_save, .presets_delete{
     visibility: hidden;
     position: fixed;
     top: 50%;
@@ -79,7 +79,15 @@
     }
 }
 
-    .presets_saveClose, .presets_loadClose,.presets_promptClose{
+.presets_delete{
+    .deleteMenuShown &{
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(-50%) translateZ(0);
+    }
+}
+
+    .presets_saveClose, .presets_loadClose, .presets_deleteClose,.presets_promptClose{
         position: absolute;
         top: 20px;
         right: 25px;
@@ -122,7 +130,11 @@
         transform: scale(1,1);
     }
     
-    input{
+    
+
+}
+
+    .presets_promptContent{        
         position: absolute;
         top: 50%;
         left: 0;
@@ -131,16 +143,23 @@
         padding: 20px 0;
         width: 500px;
         
-        background-color: transparent;
-        color: @c_main;
-        font-size: 30px;
-        font-weight: 100;
-        
-        border: 0;
-        border-bottom: 2px solid @c_second;
-        
-        outline: none;
-        
-    }
+        input{
+            margin-right: 20px;
+            padding-bottom: 10px;
+            width:80%;
 
-}
+            background-color: transparent;
+            color: @c_main;
+            font-size: 30px;
+            font-weight: 100;
+
+            border: 0;
+            border-bottom: 2px solid @c_second;
+
+            outline: none;
+        }
+        
+        button{
+            .floating-button();
+        }
+    }

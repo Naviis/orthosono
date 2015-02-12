@@ -76,11 +76,14 @@ var Player = function(){
     this.$e_menuLoad = $('.menu_load');
     this.$e_menuSave = $('.menu_save');
     this.$e_menuHelp = $('.menu_help');
+    this.$e_menuDelete = $('.menu_delete');
     this.$e_newPreset = $('.presets_new');
     this.$e_presetsLoadList = $('.presets_loadList');
     this.$e_presetsSaveList = $('.presets_saveList');
+    this.$e_presetsDeleteList = $('.presets_deleteList');
     this.$e_presetPrompt = $('.presets_prompt');
     this.$e_presetName = $('.preset_name');
+    this.$e_presetNameButton = $('.preset_name_button');
         
     // Misc
     this.silence_delay = 0;
@@ -160,13 +163,16 @@ Player.prototype = {
     generatePresets : function(){         
         this.$e_presetsSaveList.html('');
         this.$e_presetsLoadList.html('');
+        this.$e_presetsDeleteList.html('');
         for( var i = 0; i < this.presets.length; i++ ){
             var current_preset = this.presets[i];
             var li = $('<li></li>').attr('data-id',i).attr('data-name',current_preset.name).html(current_preset.name);
             var li2 = li.clone();
+            var li3 = li.clone();
             li.addClass(this.c_rippleClass);
             this.$e_presetsSaveList.append(li);
             this.$e_presetsLoadList.append(li2);
+            this.$e_presetsDeleteList.append(li3);
         } 
     },
     
@@ -234,6 +240,13 @@ Player.prototype = {
             self.name = $(this).val();
         });
         
+        this.$e_presetNameButton.click(function(e){
+            self.$e_presetPrompt.removeClass(self.c_activeClass);
+            self.savePreset(-1);
+            self.$e_presetName.val('');            
+            self.name = $(this).val();
+        });
+        
         //Prev Button
         this.$e_prevBtn.click(function(e){
             e.preventDefault();
@@ -267,6 +280,11 @@ Player.prototype = {
             self.$e_body.addClass('loadMenuShown');
         });
         
+        // Handle delete link
+        this.$e_menuDelete.click(function(){
+            self.$e_body.addClass('deleteMenuShown');
+        });
+        
         // Handle presets new button
         this.$e_newPreset.on('click',function(){
             self.$e_presetPrompt.addClass(self.c_activeClass);
@@ -286,6 +304,12 @@ Player.prototype = {
         this.$e_presetsLoadList.on('click','li',function(){
             var id = $(this).attr('data-id');
             self.loadPreset(id);
+        });
+        
+        // Handle presets delete list
+        this.$e_presetsDeleteList.on('click','li',function(){
+            var id = $(this).attr('data-id');
+            self.deletePreset(id);
         });
     },
     
@@ -436,6 +460,20 @@ Player.prototype = {
         window.localStorage.setItem('presets',JSON.stringify(this.presets) );
         
         this.generatePresets();
+    },
+    
+    // Delete a preset ask confirmation
+    deletePreset : function(id){
+        
+        if( typeof this.presets[id] != 'undefined' ){
+            if( window.confirm('Ces paramètres seront définitivement supprimés. Continuer ?') ){
+                this.presets.splice(id,1);
+                window.localStorage.setItem('presets',JSON.stringify(this.presets) );
+                this.generatePresets();
+            }else{
+                return;
+            }
+        }
     },
     
     //Load a preset

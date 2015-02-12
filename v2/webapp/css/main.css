@@ -492,7 +492,8 @@ body {
 }
 .menuShown .g_overlay,
 .saveMenuShown .g_overlay,
-.loadMenuShown .g_overlay {
+.loadMenuShown .g_overlay,
+.deleteMenuShown .g_overlay {
   visibility: visible;
   opacity: 1;
 }
@@ -679,7 +680,8 @@ header span {
   color: #ffc107;
 }
 .presets_load,
-.presets_save {
+.presets_save,
+.presets_delete {
   visibility: hidden;
   position: fixed;
   top: 50%;
@@ -705,23 +707,27 @@ header span {
   z-index: 5;
 }
 .presets_load:hover,
-.presets_save:hover {
+.presets_save:hover,
+.presets_delete:hover {
   -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.3), 0 5px 3px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3), 0 5px 3px rgba(0, 0, 0, 0.2);
 }
 .presets_load p,
-.presets_save p {
+.presets_save p,
+.presets_delete p {
   line-height: 22px;
 }
 .presets_load ul,
-.presets_save ul {
+.presets_save ul,
+.presets_delete ul {
   margin: 20px 0;
   padding: 0;
   max-height: 400px;
   overflow: auto;
 }
 .presets_load li,
-.presets_save li {
+.presets_save li,
+.presets_delete li {
   padding: 10px;
   padding-left: 0;
   font-size: 18px;
@@ -732,7 +738,8 @@ header span {
   transition: all ease .3s;
 }
 .presets_load li:before,
-.presets_save li:before {
+.presets_save li:before,
+.presets_delete li:before {
   content: '\e095';
   display: inline-block;
   vertical-align: middle;
@@ -740,7 +747,8 @@ header span {
   margin-right: 10px;
 }
 .presets_load li:hover,
-.presets_save li:hover {
+.presets_save li:hover,
+.presets_delete li:hover {
   padding-left: 10px;
   background-color: #ffc107;
 }
@@ -784,8 +792,15 @@ header span {
   -webkit-transform: translateY(-50%) translateZ(0);
   transform: translateY(-50%) translateZ(0);
 }
+.deleteMenuShown .presets_delete {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transform: translateY(-50%) translateZ(0);
+  transform: translateY(-50%) translateZ(0);
+}
 .presets_saveClose,
 .presets_loadClose,
+.presets_deleteClose,
 .presets_promptClose {
   position: absolute;
   top: 20px;
@@ -799,6 +814,7 @@ header span {
 }
 .presets_saveClose:hover,
 .presets_loadClose:hover,
+.presets_deleteClose:hover,
 .presets_promptClose:hover {
   color: #ffc107;
 }
@@ -832,7 +848,7 @@ header span {
   -ms-transform: scale(1, 1);
   transform: scale(1, 1);
 }
-.presets_prompt input {
+.presets_promptContent {
   position: absolute;
   top: 50%;
   left: 0;
@@ -840,6 +856,11 @@ header span {
   margin: 0 auto;
   padding: 20px 0;
   width: 500px;
+}
+.presets_promptContent input {
+  margin-right: 20px;
+  padding-bottom: 10px;
+  width: 80%;
   background-color: transparent;
   color: #333333;
   font-size: 30px;
@@ -847,6 +868,32 @@ header span {
   border: 0;
   border-bottom: 2px solid #ffc107;
   outline: none;
+}
+.presets_promptContent button {
+  width: 55px;
+  height: 55px;
+  background-color: #ffffff;
+  color: #333333;
+  font-size: 25px;
+  line-height: 55px;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+  z-index: 1;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.3), 0 2px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3), 0 2px 3px rgba(0, 0, 0, 0.2);
+  -webkit-transition: all ease .3s;
+  transition: all ease .3s;
+}
+.presets_promptContent button:hover {
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.3), 0 5px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3), 0 5px 3px rgba(0, 0, 0, 0.2);
+}
+.presets_promptContent button:active,
+.presets_promptContent button:focus {
+  background-color: #ffc107;
+  color: #ffffff;
 }
 .properties_listsWrapper:after {
   content: '';
