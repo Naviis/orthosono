@@ -56,7 +56,7 @@ var Player = function(){
                             {"name":"Tonnerre","path":"tonnerre"},
                             {"name":"Vagues","path":"vagues"}];
     this.sounds_path = 'sounds/';
-    this.extension = 'ogg';
+    this.extension = 'mp3';
     this.playlist = [];
     this.current = 0;
     
@@ -72,6 +72,7 @@ var Player = function(){
     this.$e_countDown = $('.player_countDown');
     this.$e_playlist = $('.player_playlist');
     this.c_activeClass = 'active';
+    this.c_disabledClass = 'disabled';
     this.c_rippleClass = 'g_ripple';
     this.$e_menuLoad = $('.menu_load');
     this.$e_menuSave = $('.menu_save');
@@ -164,16 +165,27 @@ Player.prototype = {
         this.$e_presetsSaveList.html('');
         this.$e_presetsLoadList.html('');
         this.$e_presetsDeleteList.html('');
-        for( var i = 0; i < this.presets.length; i++ ){
-            var current_preset = this.presets[i];
-            var li = $('<li></li>').attr('data-id',i).attr('data-name',current_preset.name).html(current_preset.name);
-            var li2 = li.clone();
-            var li3 = li.clone();
-            li.addClass(this.c_rippleClass);
+        
+        if( !this.presets.length ){
+            var li = $('<li></li>').addClass(this.c_disabledClass).html('Vous n\'avez aucun paramètre d\'enregistré.')
             this.$e_presetsSaveList.append(li);
-            this.$e_presetsLoadList.append(li2);
-            this.$e_presetsDeleteList.append(li3);
-        } 
+            this.$e_presetsLoadList.append(li.clone());
+            this.$e_presetsDeleteList.append(li.clone());
+        }else{
+            for( var i = 0; i < this.presets.length; i++ ){
+                var current_preset = this.presets[i];
+                var li = $('<li></li>').attr('data-id',i).attr('data-name',current_preset.name).html(current_preset.name);
+                var li2 = li.clone();
+                var li3 = li.clone();
+                li.addClass(this.c_rippleClass);
+                li2.addClass(this.c_rippleClass);
+                li3.addClass(this.c_rippleClass);
+                this.$e_presetsSaveList.append(li);
+                this.$e_presetsLoadList.append(li2);
+                this.$e_presetsDeleteList.append(li3);
+            } 
+        }
+        
     },
     
     // Update order radio button from value
@@ -295,6 +307,8 @@ Player.prototype = {
         
         // Handle presets save list
         this.$e_presetsSaveList.on('click','li',function(){
+            if( $(this).hasClass(self.c_disabledClass)) return;
+            
             var id = $(this).attr('data-id');
             self.name = $(this).attr('data-name');
             self.savePreset(id);
@@ -302,12 +316,16 @@ Player.prototype = {
         
         // Handle presets load list
         this.$e_presetsLoadList.on('click','li',function(){
+            if( $(this).hasClass(self.c_disabledClass)) return;
+            
             var id = $(this).attr('data-id');
             self.loadPreset(id);
         });
         
         // Handle presets delete list
         this.$e_presetsDeleteList.on('click','li',function(){
+            if( $(this).hasClass(self.c_disabledClass)) return;
+            
             var id = $(this).attr('data-id');
             self.deletePreset(id);
         });
@@ -450,6 +468,7 @@ Player.prototype = {
         if( typeof this.presets[id] != 'undefined' ){
             if( window.confirm('Ces paramètres existent déjà, la remplacer ?') ){
                 preset.id = id;
+                this.$e_body.removeClass('saveMenuShown');
             }else{
                 return;
             }
@@ -470,6 +489,7 @@ Player.prototype = {
                 this.presets.splice(id,1);
                 window.localStorage.setItem('presets',JSON.stringify(this.presets) );
                 this.generatePresets();
+                this.$e_body.removeClass('deleteMenuShown');
             }else{
                 return;
             }

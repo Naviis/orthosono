@@ -58,6 +58,20 @@
             padding-left: 10px;
             background-color: @c_second;
         }
+        
+        &.disabled{
+            padding: 10px;            
+            color: @c_second;
+            cursor: auto;
+            
+            &:before{
+                display: none;
+            }
+            
+            &:hover{
+                background-color: transparent;
+            }
+        }
     }
 }
 
