@@ -56,7 +56,6 @@ var Player = function(){
                             {"name":"Tonnerre","path":"tonnerre"},
                             {"name":"Vagues","path":"vagues"}];
     this.sounds_path = 'sounds/';
-    this.extension = 'mp3';
     this.playlist = [];
     this.current = 0;
     
@@ -388,10 +387,16 @@ Player.prototype = {
         
     // Change the player sound url    
     changePlayerSoundUrl : function(){
+        
+        
         if( !this.playlist.length ){
             this.e_player.src = '';
-        }else{            
-            this.e_player.src = this.sounds_path+this.playlist[this.current].path+'.'+this.extension;
+        }else{        
+            if( this.e_player.canPlayType('audio/mpeg;') ){
+                this.e_player.src = this.sounds_path+this.playlist[this.current].path+'.mp3';
+            }else{
+                this.e_player.src = this.sounds_path+this.playlist[this.current].path+'.ogg';
+            }            
         }
     },
         

@@ -152,6 +152,20 @@
     <script src="js/min/zepto.min.js" defer></script>
     <script src="js/min/player.min.js" defer></script>
     <script src="js/min/ui.min.js" defer></script>
-	
+    
+    <script> 
+        var $buoop = {c:2}; 
+        function $buo_f(){ 
+            var e = document.createElement("script"); 
+            e.src = "//browser-update.org/update.js"; 
+            document.body.appendChild(e);
+        };
+        try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
+        catch(e){window.attachEvent("onload", $buo_f)}
+    </script> 
+
+	<footer>
+	    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">Orthosono</span> de <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.orthosono.fr" property="cc:attributionName" rel="cc:attributionURL">Geoffroy Riou</a> est mis à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Partage dans les Mêmes Conditions 4.0 International</a>.
+	</footer>
 </body>
 </html>
