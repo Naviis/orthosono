@@ -6,6 +6,14 @@ $(function(){
         $('.g_loader').removeClass('active');
     },1000);
     
+    window.setTimeout(function(){
+        $('body').addClass('stripe');
+    },2000);
+    
+    $('.alert_close').click(function(){
+        $('body').removeClass('stripe');
+    });
+    
     // Buttons
     
     $('.menu_button').click(function(){
@@ -54,6 +62,7 @@ $(function(){
             $($span).remove();
         },700);
     });
+
 });
 
 

@@ -37,7 +37,6 @@
                  <li class="menu_save icon-cloud-upload g_ripple">Enregistrer les paramètres...</li>
                  <li class="menu_load icon-cloud-download g_ripple">Charger les paramètres...</li>
                  <li class="menu_delete icon-trash g_ripple">Supprimer les paramètres...</li>
-                 <li class="menu_help icon-help g_ripple">Aide</li>
              </ul>
          </nav>
          
@@ -80,6 +79,10 @@
          </div>
           
           <!-- Sounds list -->
+          
+          <p class="beta_message">
+              Cette version d'Orthosono est encore en bêta. Si vous rencontrez des bugs ou des problèmes vous pouvez <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;%63%6F%6E%74%61%63%74%40%6F%72%74%68%6F%73%6F%6E%6F%2E%66%72">me contacter</a>.
+          </p>
           
           <div class="properties">
               
@@ -165,7 +168,24 @@
     </script> 
 
 	<footer>
-	    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">Orthosono</span> de <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.orthosono.fr" property="cc:attributionName" rel="cc:attributionURL">Geoffroy Riou</a> est mis à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Partage dans les Mêmes Conditions 4.0 International</a>.
+	    <div class="footer_wpr">
+	        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">Orthosono</span> de <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.orthosono.fr" property="cc:attributionName" rel="cc:attributionURL">Geoffroy Riou</a> est mis à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Partage dans les Mêmes Conditions 4.0 International</a>.
+	   </div>
 	</footer>
+	
+	<div class="alert">
+        <span class="alert_close">&times;</span>
+	    Lydie de <a href="http://www.ortho-n-co.fr" target="_blank">Ortho-n-co</a> a eu la très bonne idée de mettre à disposition ses planches de loto, qu'elle utilise avec Orthosono. Vous pouvez les récupérer à <a href="http://www.ortho-n-co.fr/wp-content/uploads/2015/02/Loto-sonore-OrthoSono.pdf" target="_blank">cette adresse</a>.
+	</div>
+	
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-47296748-1', 'orthosono.fr');
+	  ga('send', 'pageview');
+	</script>
 </body>
 </html>
